@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Settings,
@@ -135,6 +136,7 @@ function ParticleBackground() {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [fieldErrors, setFieldErrors] = useState({});
@@ -205,8 +207,8 @@ export default function Home() {
       });
 
       if (error) throw error;
-      setMessage({ type: "success", text: "Application submitted successfully!" });
-      setForm({ name: "", sc_no: "", branch: "", vertical1: "", vertical2: "", mob_no: "", section: "", mail: "", portfolio: null });
+      router.push("/thank-you");
+      return;
     } catch (err) {
       setMessage({ type: "error", text: err.message || "Something went wrong." });
     } finally {
@@ -250,8 +252,8 @@ export default function Home() {
               <Image
               src="/logo final.jpg"
               alt="Robotics Club MANIT Bhopal"
-              width={100}
-              height={100}
+              width={140}
+              height={140}
                 className="rounded-xl border-2 border-cyan-500/40 object-cover shadow-[0_0_20px_rgba(34,211,238,0.15)]"
               />
             </motion.div>
@@ -354,7 +356,7 @@ export default function Home() {
                 </label>
                 <div className="relative">
                   {FIELD_ICONS[key] && (
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
                       {(() => {
                         const Icon = FIELD_ICONS[key];
                         return <Icon className={iconClass} />;
@@ -366,7 +368,7 @@ export default function Home() {
                       name={key}
                       value={form[key]}
                       onChange={handleChange}
-                      className={`${inputClass(key)} pl-10`}
+                      className={`${inputClass(key)} pl-14`}
                     >
                       <option value="">Select branch</option>
                       {BRANCH_OPTIONS.map((b) => (
@@ -378,7 +380,7 @@ export default function Home() {
                       name={key}
                       value={form[key]}
                       onChange={handleChange}
-                      className={`${inputClass(key)} pl-10`}
+                      className={`${inputClass(key)} pl-14`}
                     >
                       <option value="">Select vertical</option>
                       {VERTICAL_OPTIONS.map((v) => (
@@ -390,7 +392,7 @@ export default function Home() {
                       name={key}
                       value={form[key]}
                       onChange={handleChange}
-                      className={`${inputClass(key)} pl-10`}
+                      className={`${inputClass(key)} pl-14`}
                     >
                       <option value="">Select section</option>
                       {SECTION_OPTIONS.map((s) => (
@@ -403,7 +405,7 @@ export default function Home() {
                       name={key}
                       value={form[key]}
                       onChange={handleChange}
-                      className={`${inputClass(key)} pl-10`}
+                      className={`${inputClass(key)} pl-12`}
                       placeholder={
                         key === "name" ? "Enter your name" :
                         key === "sc_no" ? "Scholar number" :
@@ -437,14 +439,14 @@ export default function Home() {
                 Vertical 2 <span className="text-gray-600">(optional)</span>
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
                   <Layers className={iconClass} />
                 </span>
                 <select
                   name="vertical2"
                   value={form.vertical2}
                   onChange={handleChange}
-                  className={`${baseInput} pl-10`}
+                  className={`${baseInput} pl-14`}
                 >
                 <option value="">None</option>
                 {VERTICAL_OPTIONS.map((v) => (
@@ -463,7 +465,7 @@ export default function Home() {
                 Portfolio <span className="text-gray-600">(optional)</span>
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
                   <FileUp className={iconClass} />
                 </span>
                 <input
@@ -471,7 +473,7 @@ export default function Home() {
                   name="portfolio"
                   accept=".pdf,.doc,.docx,image/*"
                   onChange={handleFileChange}
-                  className={`${baseInput} pl-10 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:bg-cyan-500/20 file:text-cyan-400 file:text-xs file:font-medium`}
+                  className={`${baseInput} pl-14 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:bg-cyan-500/20 file:text-cyan-400 file:text-xs file:font-medium`}
                 />
               </div>
             </motion.div>
