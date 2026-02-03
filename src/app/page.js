@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
+
 const VERTICAL_OPTIONS = [
   { value: "technical executive", label: "Technical Executive" },
   { value: "sponsorship and promotion", label: "Sponsorship and Promotion" },
